@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'Maven-Homebrew'   // 👈 Name must match the one you configured
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -7,6 +12,7 @@ pipeline {
                 checkout scm
             }
         }
+
         stage('Build with Maven') {
             steps {
                 echo '⚙️ Running Maven build...'
@@ -14,13 +20,13 @@ pipeline {
             }
         }
     }
+
     post {
         success {
-            echo '✅ Build successful!'
+            echo '✅ Build completed successfully!'
         }
         failure {
             echo '❌ Build failed!'
         }
     }
 }
-
